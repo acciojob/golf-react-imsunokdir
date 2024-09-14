@@ -7,14 +7,11 @@ import "../styles/App.css";
 
 const App = () => {
   const [renderChoice, setRenderChoice] = useState(false);
-  const [position, setPosition] = useState(0);
+  const [position, setPosition] = useState(5);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
       const playgroundWidth = document.querySelector(".playground").offsetWidth;
-      const playgroundHeight =
-        document.querySelector(".playground").offsetHeight;
-      const ballHeight = 50;
       const ballWidth = 50;
       const maxPosition = playgroundWidth - ballWidth;
       if (e.key === "ArrowRight" || e.keyCode === 39) {
