@@ -1,42 +1,49 @@
-import React, { Component, useState } from "react";
-import '../styles/App.css';
+import React, { useEffect, useState } from "react";
+import "../styles/App.css";
 
-class App extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            renderBall: false,
-            posi : 0,
-            ballPosition: { left: "0px" }
-        };
-        this.renderChoice = this.renderBallOrButton.bind(this)
-        this.buttonClickHandler = this.buttonClickHandler.bind(this)
+// const cStyle = {
+//   textAlign: "center",
+// };
+
+const App = () => {
+  const [renderChoice, setRenderChoice] = useState(false);
+  const [position, setPosition] = useState(0);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      const playgroundWidth = document.querySelector(".playground").offsetWidth;
+      const playgroundHeight =
+        document.querySelector(".playground").offsetHeight;
+      const ballHeight = 50;
+      const ballWidth = 50;
+      const maxPosition = playgroundWidth - ballWidth;
+      if (e.key === "ArrowRight" || e.keyCode === 39) {
+        setPosition((prev) => {
+          return Math.min(prev + 5, maxPosition);
+        });
+      }
     };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
-    buttonClickHandler() {
-   
-   }
-    renderBallOrButton() {
-		if (this.state.renderBall) {
-		    return <div className="ball" style={this.state.ballPosition}></div>
-		} else {
-		    return <button onClick={this.buttonClickHandler} >Start</button>
-		}
-    }
-
-    // bind ArrowRight keydown event
-    componentDidMount() {
-      
-    }
-
-    render() {
-        return (
-            <div className="playground">
-                {this.renderBallOrButton()}
-            </div>
-        )
-    }
-}
-
+  const buttonClickHandler = () => setRenderChoice(true);
+  return (
+    <div className="playground">
+      {renderChoice ? (
+        <div
+          className="ball"
+          style={{ transform: `translateX(${position}px)` }}
+        ></div>
+      ) : (
+        <button onClick={buttonClickHandler} className="start">
+          start
+        </button>
+      )}
+    </div>
+  );
+};
 
 export default App;

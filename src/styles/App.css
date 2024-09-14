@@ -2,9 +2,11 @@
     width:50%;
     height:50%;
     margin: auto;
+    background-color: rgb(198, 125, 125);
 }
-body html .root {
+html, body, #root {
     height: 100%;
+    background-color: rgb(76, 76, 135);
 }
 .ball{
     background-color: black;
