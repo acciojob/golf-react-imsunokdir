@@ -29,6 +29,7 @@ class App extends Component {
       });
     }
   }
+  //  1
   renderBallOrButton() {
     if (this.state.renderBall) {
       return <div className="ball" style={this.state.ballPosition}></div>;
